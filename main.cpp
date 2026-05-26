@@ -3,89 +3,64 @@
 
 int main(){
     struct Produto produtos[MAX_PRODUTOS];
-    int qtdProdutos =0;
-    int opcao =0;
+    int qtdProdutos = 0;
+    int opcao = 0;
 
     do
     {
-        limpaTela();
+        limparTela();
         exibirMenu();
 
-        if(scanf("%d",&opcao) != 1){
-            printf(" Entrada inválida digite um numero\n");
-
+        if(scanf("%d", &opcao) != 1){
+            printf("Entrada inválida, digite um número\n");
             while (getchar() != '\n');
             pausar();
             continue;
-          
         }
         getchar();
 
         switch (opcao)
         {
         case 1:
-            caderastaProduto(produtos, &qtdProdutos);
-
+            cadastrarProduto(produtos, &qtdProdutos);
             break;
-        case  2:
-
-            listarProdutos(produtos, &qtdProdutos);
-
+        case 2:
+            listarProduto(produtos, &qtdProdutos);
             break;
-
         case 3:{
-
-            
             int cod;
-            
-            printf("\n Digite o código do produto para buscar: ");
-            
+            printf("\nDigite o código do produto para buscar: ");
             scanf("%d", &cod);
-            
             getchar();
             
-            int idx = buscarProduto(produtos, &qtdProdutos,cod);
+            int idx = buscarProduto(produtos, &qtdProdutos, cod);
             
-            if (idx !=  -1 ) {
-                printf("\n Produto encontrado\n");
-                
-                printf("codigo: %d\n",predutos[idx].codigo);
-                printf("nome): %s\n",predutos[idx].nome);
-                printf("preco: %.2f\n",predutos[idx].preco);
-                printf("Quantidade: %d\n",predutos[idx].quantidade);
-                
-            }else{
-                
-                printf(" Produto não encontrado");
+            if (idx != -1) {
+                printf("\nProduto encontrado:\n");
+                printf("Codigo: %d\n", produtos[idx].codigo);
+                printf("Nome: %s\n", produtos[idx].nome);
+                printf("Preco: R$ %.2f\n", produtos[idx].preco);
+                printf("Quantidade: %d\n", produtos[idx].quantidade);
+            } else {
+                printf("Produto não encontrado!\n");
             }
             pausar();
-            
             break;
         }
-
         case 4: {
-
             float total = calcularEstoque(produtos, &qtdProdutos);
-
-            printf(" Valor total em estoque R$ %.2f\n",total);
-
+            printf("\nValor total em estoque: R$ %.2f\n", total);
             pausar();
-            
             break;
         }
-
         case 5:
-
-            printf(" Saindo do sistema...");
-
+            printf("\nSaindo do sistema...\n");
             break;
         default:
-
-            printf(" Opção inválida tente novamente");
+            printf("Opção inválida, tente novamente!\n");
             pausar();
         }
     } while (opcao != 5);
 
     return 0;
-    
 }
