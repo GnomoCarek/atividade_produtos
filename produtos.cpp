@@ -4,7 +4,7 @@
 #include "produtos.h"
 
 void limparTela(){
-    #ifdef _WIN324
+    #ifdef _WIN32
         system("cls");
     #else 
          system("clear");
@@ -12,9 +12,8 @@ void limparTela(){
 }
 
 void pausar(){
-    printf("\n Pressione enter para continuar...");
+    printf("\nPressione enter para continuar...");
     getchar();
-
 
 }
 
@@ -26,18 +25,18 @@ void exibirMenu(){
     printf ("3. Buscar produto pelo codigo\n");
     printf ("4. Calcular o valor total em estoque\n");
     printf ("5. Sair\n");
-    printf ("\n Escolha uma opcao: ");
+    printf ("Escolha uma opcao: ");
 }
 
 void cadastrarProduto(struct Produto p[],int *qtd){
 
-    if (*qtd >= MAX_PRODUTOS)
-    {
-       printf("\n Erro limite de estoque atingido\n");
+    if (*qtd >= MAX_PRODUTOS){
 
+       printf("\nErro limite de estoque atingido\n");
        pausar();
        return;
     }
+
     limparTela();
 
     printf("\n======== Cadastrar produto ========\n");
@@ -66,26 +65,28 @@ void cadastrarProduto(struct Produto p[],int *qtd){
 
     (*qtd)++;
 
-    printf(" Produto cadastrado com sucesso");
+    printf("Produto cadastrado com sucesso");
 
     pausar();
 }
 
 void listarProduto(struct Produto p[],int *qtd){
 
+    int i;
+
     limparTela();
 
-    if (qtd == 0)
+    if (*qtd == 0)
     {
-        printf(" Nenhum produto Cadrastado\n");
+        printf("Nenhum produto Cadrastado\n");
 
 
     }else{
 
-        printf("\n======== Lista produtos =======\N");
+        printf("\n======== Lista produtos =======\n");
 
 
-        printf("%-10D | %-20S | %-10.2f | %-10d\n",p[i].codigo,p[i].nome,p[i].preco,p[i].quantidade);
+        printf("%-10d | %-20s | %-10.2f | %-10d\n", p[i].codigo,p[i].nome,p[i].preco,p[i].quantidade);
 
         pausar();
 
@@ -94,28 +95,25 @@ void listarProduto(struct Produto p[],int *qtd){
     
 }
 
-void buscarProduto(struct Produto p[],int *qtd,int codigo){
+int buscarProduto(struct Produto p[],int *qtd,int codigo){
 
-    for ( i = 0; i < qtd; i++)
+    for (int i = 0; i < *qtd; i++)
     {
         if (p[i].codigo == codigo)
         {
             return i;
-        }
-        
+        }   
     }
     return -1;
 } 
 
-void calcularEstoque(struct Produto p[],int *qtd){
+float calcularEstoque(struct Produto p[],int *qtd){
 
     float total = 0;
 
-    for ( i = 0; i < qtd; i++)
+    for (int i = 0; i < *qtd; i++)
     {
         total += p[i].preco * p[i].quantidade;
-
-
     }
     return total;
 }
